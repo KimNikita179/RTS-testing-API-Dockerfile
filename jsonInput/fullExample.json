@@ -1,0 +1,54 @@
+{
+  "project": "RTC",
+  "defaults": {
+    "baseUrl": "https://example.com",
+    "timeoutsMs": {
+      "step": 15000,
+      "navigation": 30000
+    },
+    "ui": {
+      "browser": "chromium", // выбор браузера через PW
+      "viewport": { "width": 1280, "height": 720 }
+    }
+  },
+  "variables": {
+    "adminUser": "admin",
+    "adminPass": "secret"
+  },
+  "tests": [
+    {
+      "id": "ui-login-001",
+      "name": "Login works",
+      "type": "ui",
+      "startUrl": "/login",
+      "tags": ["smoke", "auth"],
+      "steps": [
+        { "id": "s1", "action": "navigate", "value": "/login" },
+
+        {
+          "id": "s2",
+          "action": "fill",
+          "target": { "using": "css", "value": "input[name='username']" },
+          "value": "${adminUser}"
+        },
+        {
+          "id": "s3",
+          "action": "fill",
+          "target": { "using": "css", "value": "input[name='password']" },
+          "value": "${adminPass}"
+        },
+        {
+          "id": "s4",
+          "action": "click",
+          "target": { "using": "css", "value": "button[type='submit']" }
+        },
+
+        {
+          "id": "s5",
+          "action": "assert",
+          "expect": { "kind": "urlContains", "value": "/dashboard" }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+    "specVersion": "1.0",
+    "project": "RTC",
+    "defaults": {
+      "baseUrl": "https://example.com",
+      "timeoutsMs": {
+        "step": 15000,
+        "navigation": 30000
+      },
+      "ui": {
+        "browser": "chromium", // выбор браузера через PW
+        "viewport": { "width": 1280, "height": 720 }
+      }
+    },
+    "variables": {
+      "adminUser": "admin",
+      "adminPass": "secret"
+    },
+    "tests": [
+      {
+        "id": "ui-login-001",
+        "name": "Login works",
+        "startUrl": "/login",
+        "tags": ["smoke", "auth"],
+        "severity": "critical",
+        "steps": []
+      }
+    ]
+  }

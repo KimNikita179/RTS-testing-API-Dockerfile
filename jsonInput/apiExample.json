@@ -1,0 +1,27 @@
+{
+    "id": "api-health-001",
+    "name": "Health endpoint returns ok",
+    "type": "api",
+    "steps": [
+      {
+        "id": "s1",
+        "action": "request",
+        "value": {
+          "method": "GET",
+          "url": "/api/health",
+          "headers": { "Accept": "application/json" }
+        },
+        "saveAs": "healthResp"
+      },
+      {
+        "id": "s2",
+        "action": "assert",
+        "expect": { "kind": "status", "from": "${healthResp}", "equals": 200 }
+      },
+      {
+        "id": "s3",
+        "action": "assert",
+        "expect": { "kind": "jsonPathEquals", "from": "${healthResp}", "path": "$.ok", "equals": true }
+      }
+    ]
+  }

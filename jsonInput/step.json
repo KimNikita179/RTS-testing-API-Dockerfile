@@ -1,0 +1,39 @@
+{
+  "id": "s1",
+  "action": "click",
+  "target": { "using": "css", "value": "#submit" },
+  "value": null,
+  "expect": null,
+  "saveAs": null,
+  "timeoutMs": 15000,
+  "continueOnFail": false
+}
+
+action: одно из:
+UI: navigate, click, fill, press, select, waitFor, scrollIntoView, hover, screenshot
+
+ASSERT: assert (проверки UI или данных)
+API: request
+DATA: setVar, extract
+value: значение для действия (текст для fill, URL для navigate, ключ для press, etc.)
+expect: объект ожидания/проверки (см. ниже)
+saveAs: имя переменной, если шаг что-то “достаёт”
+continueOnFail: полезно для “мягких” проверок
+
+Локатор 
+{ "using": "css", "value": "#submit" }
+using: "css" | "xpath" | "text" | "testId"
+
+
+Стандартизированные проверки (expect)
+UI-assert примеры
+{ "kind": "urlContains", "value": "/dashboard" }
+{  "kind": "locator",  "target": { "using": "css", "value": "[data-testid='toast']" },  "assert": "visible"}
+{  "kind": "locator",  "target": { "using": "css", "value": "h1" },  "assert": "textContains",  "value": "Welcome"}
+assert для kind: "locator":
+"visible" | "hidden" | "exists" | "notExists" | "enabled" | "disabled" | "textEquals" | "textContains" | "attrEquals"
+API-assert примеры
+{ "kind": "status", "equals": 200 }
+{ "kind": "jsonPathEquals", "path": "$.ok", "equals": true }
+
+

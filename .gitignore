@@ -1,0 +1,29 @@
+# OS / редактор
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Виртуальное окружение
+venv/
+.venv/
+
+# Логи / временные файлы
+*.log
+*.tmp
+*.swp
+
+# Артефакты прогонов
+runs/
+

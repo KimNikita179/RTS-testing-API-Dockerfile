@@ -1,0 +1,26 @@
+{
+    "id": "ui-login-001",
+    "name": "Login works",
+    "type": "ui",
+    "startUrl": "/login",
+    "tags": ["smoke", "auth"],
+    "steps": [
+      { "id": "s1", "action": "navigate", "value": "/login" },
+  
+      { "id": "s2", "action": "fill",
+        "target": { "using": "css", "value": "input[name='username']" },
+        "value": "${adminUser}"
+      },
+      { "id": "s3", "action": "fill",
+        "target": { "using": "css", "value": "input[name='password']" },
+        "value": "${adminPass}"
+      },
+      { "id": "s4", "action": "click",
+        "target": { "using": "css", "value": "button[type='submit']" }
+      },
+  
+      { "id": "s5", "action": "assert",
+        "expect": { "kind": "urlContains", "value": "/dashboard" }
+      }
+    ]
+  }
