@@ -1,4 +1,4 @@
-# RTC testing API (FastAPI + Playwright)
+# RTC testing API (FastAPI + Playwright + Docker)
 
 Сервис принимает JSON-описание теста (как в `jsonInput/`), запускает прогон и отдаёт **статус/результаты** по уникальной ссылке. Скриншоты сохраняются в этом же проекте и доступны по URL из результатов.
 
