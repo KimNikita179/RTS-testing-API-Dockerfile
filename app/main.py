@@ -87,10 +87,34 @@ async def get_run(run_id: str) -> dict[str, Any]:
         raise HTTPException(status_code=404, detail="run not found")
     return read_json(p)
 
+@app.get("/runs")
+async def list_runs() -> list[dict[str, Any]]:
+    # read all run.json files in the runs directory and return as an array
+    results: list[dict[str, Any]] = []
+    for d in RUNS_DIR.iterdir():
+        if d.is_dir():
+            st = d / "run.json"
+            if st.exists():
+                try:
+                    results.append(read_json(st))
+                except Exception:
+                    pass
+    # optionally sort by createdAt desc
+    results.sort(key=lambda x: x.get("createdAt", ""), reverse=True)
+    return results
+
+
+from pathlib import Path
+
 
 # Раздача артефактов (скриншоты, html, etc)
 RUNS_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/artifacts", StaticFiles(directory=str(RUNS_DIR), html=False), name="artifacts")
+
+# Статика фронтенда
+FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
+if FRONTEND_DIR.exists():
+    app.mount("/app", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
 
 
 def _parse_suite(payload: dict[str, Any], *, base_url_override: str | None) -> SuiteSpec:

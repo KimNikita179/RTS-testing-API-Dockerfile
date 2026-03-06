@@ -1,4 +1,4 @@
-# RTC testing API (FastAPI + Playwright + Docker)
+# RTC testing API (FastAPI + Playwright)
 
 Сервис принимает JSON-описание теста (как в `jsonInput/`), запускает прогон и отдаёт **статус/результаты** по уникальной ссылке. Скриншоты сохраняются в этом же проекте и доступны по URL из результатов.
 
@@ -12,6 +12,8 @@
 - **GET** ` /runs/{runId} `
   - пока идёт прогон: возвращает `status=queued|running` и `current` (текущий шаг)
   - после окончания: возвращает `status=completed` и `results`
+- **GET** ` /runs`
+  - возвращает массив результатов всех запусков (папки `runs/*/run.json`)
 - **GET** ` /artifacts/{runId}/artifacts/<file> `
   - раздача скриншотов/артефактов (ссылки приходят в `screenshotUrl`)
 
@@ -26,6 +28,20 @@ pip install --upgrade pip
 pip install -r requirements.txt
 python -m playwright install
 ```
+
+2) Запустить API:
+
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+3) Открыть Swagger: `http://localhost:8000/docs`
+
+4) Фронтенд доступен по адресу `http://localhost:8000/app/`.
+   Это SPA с тремя вкладками:
+   - **Runs** – список всех прогонов и ссылки на детали
+   - **Builder** – графический конструктор JSON-тестов
+   - **Run/…** – детальный просмотр шагов и скриншотов
 
 2) Запустить API:
 
